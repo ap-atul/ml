@@ -1,20 +1,20 @@
-import numpy as np
+import pandas as pd
 from matplotlib import pyplot as plt
 from sklearn.model_selection import train_test_split
-import pandas as pd
 
 from lr import *
 
-X = np.array([10, 9, 2, 15, 10, 16, 11, 16])
-y = np.array([95, 80, 10, 50, 45, 98, 36, 93])
+DATA_FILE = "example.csv"
+# DATA_FILE = "dataset.csv"  # body and brain weight
 
+data = pd.read_csv(DATA_FILE, header=None)
+X = data.iloc[:, 0]
+y = data.iloc[:, 1]
 
-df = pd.DataFrame({"hours": X, "risk": y})
-df.to_csv("example.csv", index=False)
+X = np.array(X)
+y = np.array(y)
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=50)
-
-print(X_train)
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.7)
 
 print(f"Training samples :: {len(X_train)}")
 print(f"Testing sample :: {len(X_test)}")
@@ -23,7 +23,8 @@ model = LinearRegression()
 model.fit(X_train, y_train)
 pred = model.predict(X_test)
 
+plt.scatter(X, y, marker="*", color='g')
 plt.plot(X_test, pred, marker=".", color='r')
-plt.scatter(X_test, y_test, marker="*")
 plt.show()
 
+print(f"RMSE :: {rmse(y_test, pred)}")
