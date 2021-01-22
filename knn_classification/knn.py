@@ -1,8 +1,7 @@
-from collections import Counter
 from math import sqrt
 
 def euclidean(a, b):
-    return sqrt((a - b) ** 2)
+    return sqrt(sum([(a_i - b_i) ** 2 for a_i, b_i in zip(a, b)]))
 
 def accuracy(act, pred):
     return (sum([1 for yt, yp in zip(act, pred) if yt == yp]) / len(pred))
