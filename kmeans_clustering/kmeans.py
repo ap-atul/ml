@@ -10,9 +10,11 @@ class KMeans:
 
     def fit(self, data, init_centroids=None):
         if init_centroids is None:
-            self._centroids = [data[i] for i in range(self._k)]
+            for i in range(self._k):
+                self._centroids[i] = data[i]
         else:
-            self._centroids = init_centroids
+            for i in range(self._k):
+                self._centroids[i] = init_centroids[i]
 
         for _ in range(self._epochs):
             for i in range(self._k):
@@ -29,11 +31,12 @@ class KMeans:
             opitimized = True
             for c in self._centroids:
                 original, current = prev_centroids[c], self._centroids[c]
-                if (new := np.sum((current - original) / original * 100.0)) > self.tol:
+                if (new := np.sum((current - original) / original * 100.0)) > self._tol:
                     print("New centroid :: ", new)
                     optimized = False
 
             if optimized:
+                print("breakign")
                 break
 
     def predict(self, data):
