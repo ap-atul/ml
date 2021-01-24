@@ -27,5 +27,5 @@ class KMeans:
                 self._centroids[classification] = np.average(self._classifications[classification], axis=0)
 
     def predict(self, data):
-        distances = [np.linalg.norm(data - self._centroids[centroid]) for centroid in self._centroids]
+        distances = [_euclidean(data, self._centroids[centroid]) for centroid in self._centroids]
         return distances.index(min(distances))
