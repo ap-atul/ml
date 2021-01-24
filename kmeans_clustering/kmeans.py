@@ -32,13 +32,11 @@ class KMeans:
             for c in self._centroids:
                 original, current = prev_centroids[c], self._centroids[c]
                 if (new := np.sum((current - original) / original * 100.0)) > self._tol:
-                    print("New centroid :: ", new)
                     optimized = False
 
             if optimized:
-                print("breakign")
                 break
 
     def predict(self, data):
-        distances = [np.linalg.norm(data - self.centroids[centroid] for centroid in self._centroids)]
+        distances = [np.linalg.norm(data - self._centroids[centroid]) for centroid in self._centroids]
         return distances.index(min(distances))
