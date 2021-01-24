@@ -5,4 +5,13 @@ centers = [[0.1, 0.6], [0.3, 0.2]]
 
 km = KMeans()
 km.fit(points)
-print(km._classifications)
+
+
+# 1. P6 belongs to cluster
+print(f"P6 point belongs to cluster:: {km.predict(points[5])}")
+
+# 2. Population of cluster 2
+print(f"Population of cluster 2 :: {len(km._classifications[1])}")
+
+# 3. Updated values for the clusters
+print(f"Updated clusters :: {list(km._centroids.values())}")
