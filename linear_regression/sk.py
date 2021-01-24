@@ -31,5 +31,8 @@ print("RMSE::", np.sqrt(mean_squared_error(y_test, pred)))
 
 
 plt.scatter(pred, y_test)
+plt.xlabel("Predictions")
+plt.ylabel("Test labels")
+plt.tight_layout()
 plt.show()
 
