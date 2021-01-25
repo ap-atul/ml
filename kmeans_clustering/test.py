@@ -20,10 +20,12 @@ print(f"Updated clusters :: {list(km._centroids.values())}")
 colors = ['r', 'g']
 for classification in km._classifications:
     for x, y in km._classifications[classification]:
-        plt.scatter(x, y, color=colors[classification], s=10)
+        plt.scatter(x, y, color=colors[classification], s=20)
 
 for center in km._centroids:
     x, y = km._centroids[center]
     plt.scatter(x, y, color=colors[center], marker="*", s=50)
+
+plt.legend()
 plt.show()
 
