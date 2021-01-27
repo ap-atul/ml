@@ -13,15 +13,12 @@ class KMeans:
             self._centroids = dict(enumerate(data[0: self._k]))
         else:
             self._centroids = dict(enumerate(init_centroids[0: self._k]))
-
         for _ in range(self._epochs):
             for i in range(self._k):
                 self._classifications[i] = list()
-
             for row in data:
                 distances = [_euclidean(row, self._centroids[centroid]) for centroid in self._centroids]
                 self._classifications[distances.index(min(distances))].append(row)
-
             prev_centroids = dict(self._centroids)
             for classification in self._classifications:
                 self._centroids[classification] = np.average(self._classifications[classification], axis=0)

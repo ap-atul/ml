@@ -25,7 +25,5 @@ for classification in km._classifications:
 for center in km._centroids:
     x, y = km._centroids[center]
     plt.scatter(x, y, color=colors[center], marker="*", s=50)
-
-plt.legend()
 plt.show()
 
