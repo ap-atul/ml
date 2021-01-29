@@ -1,8 +1,9 @@
+from collections import Counter
 import numpy as np
 
 def gini_index(classes):  # # Gini = 1−∑pi2
-    ones, size = np.count_nonzero(classes), len(classes)
-    prob_one, prob_one = ones / size, (size - ones) / size
+    ones, size = Counter(classes)[1], len(classes)
+    prob_one, prob_zero = ones / size, (size - ones) / size
     return 1 - (prob_zero ** 2 + prob_one ** 2)
 
 def gini_gain(prev_classes, curr_classes): # Gini(A) = Gini(D) − Gini A (D)
@@ -62,9 +63,9 @@ class DecisionTree:
             for col in range(features.shape[1]):
                 col_mean = np.mean(features[:, col])
                 new_classes = list()
-                temp_x_left, temp_x_right, temp_y_left, temp_x_right = partition_classes(features, classes, col, col_mean)
+                temp_x_left, temp_x_right, temp_y_left, temp_y_right = partition_classes(features, classes, col, col_mean)
                 new_classes += [temp_y_left, temp_y_right]
-                col_gini_gain = gini_gain(classes, classes_new)
+                col_gini_gain = gini_gain(classes, new_classes)
 
                 if col_gini_gain > best_gini_gain:
                     best_gini_gain, best_col_index, best_col_thresh = col_gini_gain, col, col_mean
