@@ -2,7 +2,7 @@ from collections import Counter
 import numpy as np
 
 def gini_index(classes):  # # Gini = 1−∑pi2
-    ones, size = Counter(classes)[1], len(classes)
+    ones, size = np.count_nonzero(c for c in classes), len(classes)
     prob_one, prob_zero = ones / size, (size - ones) / size
     return 1 - (prob_zero ** 2 + prob_one ** 2)
 
@@ -28,7 +28,7 @@ def partition_classes(x, y, split_att, split_val):
             y_left.append(y[i])
         else:
             x_right.append(x[i])
-            y_right.appedn(y[i])
+            y_right.append(y[i])
     return x_left, x_right, y_left, y_right
 
 class DecisionNode:
@@ -78,5 +78,4 @@ class DecisionTree:
             return DecisionNode(left_tree, right_tree, lambda feature: feaature[best_col_index] < best_col_thresh)
 
     def classify(self, features):
-        tree = self._root
-        return [tree.decide(feature) for feature in features]
+        return [self._root.decide(feature) for feature in features]
