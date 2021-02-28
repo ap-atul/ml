@@ -18,7 +18,7 @@ std = StandardScaler()
 X_train = std.fit_transform(X_train)
 X_test = std.transform(X_test)
 
-tree = DecisionTreeClassifier(criterion='entropy', random_state=0)
+tree = DecisionTreeClassifier(criterion='gini', random_state=0)
 tree.fit(X_train, y_train)
 
 y_pred = tree.predict(X_test)
